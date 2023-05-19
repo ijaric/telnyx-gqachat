@@ -1,0 +1,33 @@
+version: '3.5'
+services:
+  api:
+#    image: ijaric/movies-api:0.1.2
+    build:
+      context: ../
+      dockerfile: ./Dockerfile
+    restart: always
+    env_file:
+      - .env
+    entrypoint: >
+      sh -c "python /opt/app/etl/main.py
+      && python /opt/app/src/main.py"
+    networks:
+      - gqa_network
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/site.conf:/etc/nginx/conf.d/site.conf:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+    networks:
+      - gqa_network
+
+
+networks:
+  gqa_network:
+    name: gqa_chatbot
+    driver: bridge

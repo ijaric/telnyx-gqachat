@@ -1,0 +1,9 @@
+openai==0.27.6
+orjson==3.8.12
+langchain==0.0.171
+chromadb==0.3.23
+beautifulsoup4==4.12.2
+orjson==3.8.12
+pydantic==1.10.7
+pytz==2023.3
+python-dotenv==1.0.0
